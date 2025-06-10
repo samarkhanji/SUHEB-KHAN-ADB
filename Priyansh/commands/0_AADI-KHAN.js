@@ -1,30 +1,71 @@
-const fs = require("fs");
-module.exports.config = {
-  name: "maryam",
-    version: "2.1.1",
-  hasPermssion: 0,
-  credits: "𝐏𝐑𝐈𝐘𝐀𝐍𝐒𝐇𝐈 𝐊𝐀𝐔𝐑", 
-  description: "Just Respond",
-  commandCategory: "no prefix",
-    cooldowns: 5, 
+const emojiResponses = {
+  "beta": {
+    "OWNER": [
+      "जी मेरी प्यारी मम्मी 🥺",
+      "मम्मी जब भी आप आते हो तो मुझे बहुत ख़ुशी मिलती है 😀",
+      "मम्मी हो तो आप जेशी वर्ना नहीं हो 🥺"
+    ]
+  },
+  "Babu": {
+     "OWNER": [
+      "मम्मी आज पापा दिखायी नहीं दे कहा हे 😎",
+      "मम्मी जी मैं आज स्कूल गया था 🥺 अब मुझे मारोगे तो नहीं",
+     "मम्मी जी तुम मुझे छोड़ कर मत जाना 🥺"
+    ]
+  },
+  "Baby": {
+      "OWNER": [
+      "मम्मी जी मैं आज स्कूल गया था 🥺 अब मुझे मारोगे तो नहीं",
+      "मम्मी जी तुम मुझे छोड़ कर मत जाना 🥺",
+      "मम्मी जी आप आते हो तो मुझे बहुत ख़ुशी मिलती है 🥺"
+    ]
+  }
 };
-
-module.exports.handleEvent = async ({ api, event, Users, Currencies, args, utils, client, global }) => {
-  var name = await Users.getNameUser(event.senderID);
-  var { threadID, messageID } = event;
-  let react = event.body.toLowerCase();
-  if(react.includes("maryam") ||
-     react.includes("Pʋbɭīīɕ") || react.includes("Bewafa") || react.includes("bewafa") ||
-react.includes("BEWAFA") ||
-react.includes("Boɭtīī") ||     
-react.includes("Ɓɘwʌʆʌ")) {
-    var msg = {
-        body: `𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐓𝐨 𝐁𝐨𝐭 𝐢𝐃 🤖\n\n● ────────────────── ●\n\n𝐌𝐘 𝐎𝐰𝐧𝐞𝐑 𝐀𝐚𝐝𝐢 𝐁𝐚𝐁𝐮 .... < 𝐄𝐃𝐈𝐓 > .... 𝐘𝐞 𝐁𝐨𝐓 𝐒𝐢𝐫𝐅 𝐎𝐰𝐧𝐞𝐑 𝐊 𝐋𝐢𝐘𝐞 𝐇 .... 𝐌𝐮𝐣𝐇𝐞 𝐀𝐚𝐏 𝐋𝐨𝐆𝐨 𝐊𝐨 𝐇𝐚𝐬𝐚𝐍𝐞 𝐊 𝐋𝐢𝐘𝐞 𝐁𝐚𝐧𝐘𝐚 𝐆𝐲𝐚 𝐇 𝐓𝐨𝐇 𝐇𝐚𝐩𝐩𝐘 𝐑𝐞𝐇𝐚𝐍𝐀 𝐀𝐩𝐩𝐤𝐚 𝐀𝐩𝐩𝐧𝐚 𝐎𝐰𝐧𝐞𝐑 𝐀𝐚𝐝𝐢 𝐁𝐚𝐁𝐮\n\n● ────────────────── ●\n\n𝐊𝐢𝐬𝐢 𝐁𝐡𝐢 𝐓𝐚𝐇𝐚𝐫𝐚 𝐊𝐢 𝐇𝐞𝐥𝐩 𝐋𝐚𝐧𝐢 𝐇𝐨 𝐌𝐞𝐒𝐒𝐠 𝐊𝐚𝐑𝐞 𝐎𝐰𝐧𝐞𝐫 ➻  𝐀𝐚𝐝𝐢 𝐛𝐚𝐛𝐮\n\nhttps://www.facebook.com/aadi.babu123?mibextid=ZbWKwL\n\n● ────────────────── ●\n\n𝐎𝐰𝐧𝐞𝐫 ➻  𝐀𝐚𝐝𝐢 𝐛𝐚𝐛𝐮`,attachment: fs.createReadStream(__dirname + `/noprefix/Picsart_24-12-13_23-13-49-826.jpg`)
+ 
+module.exports.config = {
+  name: "-BOT",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "AADI BABU",
+  description: "MADE BY AADI BABU",
+  commandCategory: "No command marks needed",
+  cooldowns: 0,
+};
+ 
+module.exports.handleEvent = async function({ api, event }) {
+  const { threadID, messageID, senderID, body } = event;
+  const emojis = Object.keys(emojiResponses);
+ 
+  // Convert the message body to lowercase
+  const lowercaseBody = body.toLowerCase();
+ 
+  for (const emoji of emojis) {
+    if (lowercaseBody.includes(emoji)) {
+      // Fetch user's gender correctly
+      const ThreadInfo = await api.getThreadInfo(threadID);
+      const user = ThreadInfo.userInfo.find(user => user.id === senderID);
+      const gender = user ? (user.gender ===     "MALE" ? "MALE" : "FEMALE") : "MALE";
+ 
+      // Check if the sender is the bot owner
+      const botOwnerID = "61560452881190"; // Your bot owner UID
+      let responseArray;
+ 
+      if (senderID === botOwnerID) {
+        responseArray = emojiResponses[emoji]["OWNER"];
+      } else {
+        responseArray = emojiResponses[emoji][gender] || emojiResponses[emoji]["MALE"];
       }
+ 
+      // Randomly select a response from the appropriate array
+      const randomResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
+ 
+      const msg = {
+        body: randomResponse,
+      };
       api.sendMessage(msg, threadID, messageID);
-    api.setMessageReaction("💋", event.messageID, (err) => {}, true)
+      break; // Exit the loop once a match is found
     }
   }
-  module.exports.run = async ({ api, event, Currencies, args, utils, client, global }) => {
-
-  }
+};
+ 
+module.exports.run = function() {};
