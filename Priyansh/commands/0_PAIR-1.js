@@ -1,45 +1,111 @@
 module.exports.config = {
   name: "pair",
-  version: "1.0.0", 
+  version: "1.0.0",
   hasPermssion: 0,
-  credits: "uzairrajput",
-  description: "pairing",
-  commandCategory: "Love", 
-  usages: "pair", 
-  cooldowns: 10
-};
-module.exports.run = async function({ api, event,Threads, Users }) {
-        const axios = global.nodemodule["axios"];
-        const fs = global.nodemodule["fs-extra"];
+  credits: "𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡 𝐑𝐚𝐣𝐩𝐮𝐭",
+  description: "It's a compound :>",
+  commandCategory: "Giải trí",
+  usages: "",
+  dependencies: {
+        "axios": "",
+        "fs-extra": ""
+  },
+  cooldowns: 0
+}
 
-        var { participantIDs } =(await Threads.getData(event.threadID)).threadInfo;
-        var tle = Math.floor(Math.random() * 101);
-        var namee = (await Users.getData(event.senderID)).name
-        const botID = api.getCurrentUserID();
-        const listUserID = event.participantIDs.filter(ID => ID != botID && ID != event.senderID);
-        var id = listUserID[Math.floor(Math.random() * listUserID.length)];
-        var name = (await Users.getData(id)).name
-        var arraytag = [];
-        const gifCute = ["https://i.ibb.co/0Rw4BTTP/Messenger-creation-1-C7-BD1-AA-3-CFC-4-FF4-8582-82-FE1052591-D.gif","https://i.ibb.co/2016p7X1/Messenger-creation-42-FE17-AC-F16-F-4-DFD-A4-F7-83-CE974936-A3.gif","https://i.ibb.co/Rpd1YWsP/Messenger-creation-A3-FBA4-E1-5589-47-FB-845-B-7-EDC8-DFD23-D1.gif","https://i.ibb.co/GQWVrDkc/Messenger-creation-6-F5-D2524-4-A2-E-4823-8-E9-B-EC46979-A7-FBB.gif","https://i.ibb.co/yFWqJ0Kj/Messenger-creation-498-C3-F99-B27-C-4-D5-D-B656-33-B4-B0-E7-D901.gif","https://i.ibb.co/DPXGtCw8/Messenger-creation-30-BBF4-B3-F16-A-4972-B8-B0-12919-C882-E45.gif"];
-                arraytag.push({id: event.senderID, tag: namee});
-                arraytag.push({id: id, tag: name});
+module.exports.run = async function ({ args, Users, Threads, api, event, Currencies }) {
+  const { loadImage, createCanvas } = require("canvas");
+  const fs = global.nodemodule["fs-extra"];
+  const axios = global.nodemodule["axios"];
+  let pathImg = __dirname + "/cache/background.png";
+  let pathAvt1 = __dirname + "/cache/Avtmot.png";
+  let pathAvt2 = __dirname + "/cache/Avthai.png";
 
+  var id1 = event.senderID;
+  var name1 = await Users.getNameUser(id1);
+  var ThreadInfo = await api.getThreadInfo(event.threadID);
+  var all = ThreadInfo.userInfo
+  for (let c of all) {
+    if (c.id == id1) var gender1 = c.gender;
+  };
+  const botID = api.getCurrentUserID();
+  let ungvien = [];
+  if(gender1 == "FEMALE"){
+    for (let u of all) {
+      if (u.gender == "MALE") {
+      if (u.id !== id1 && u.id !== botID) ungvien.push(u.id)
+      }
+    }
+  }
+  else if(gender1 == "MALE"){
+    for (let u of all) {
+      if (u.gender == "FEMALE") {
+      if (u.id !== id1 && u.id !== botID) ungvien.push(u.id)
+      }
+    }
+  }
+  else {
+  for (let u of all) {
+      if (u.id !== id1 && u.id !== botID) ungvien.push(u.id)
+    }
+  }
+  var id2 = ungvien[Math.floor(Math.random() * ungvien.length)];
+  var name2 = await Users.getNameUser(id2);
+  var rd1 = Math.floor(Math.random() * 100) + 1;
+  var cc = ["0", "-1", "99,99", "-99", "-100", "101", "0,01"];
+  var rd2 = cc[Math.floor(Math.random() * cc.length)];
+  var djtme = [`${rd1}`, `${rd1}`, `${rd1}`, `${rd1}`, `${rd1}`, `${rd2}`, `${rd1}`, `${rd1}`, `${rd1}`, `${rd1}`];
 
-        let Avatar = (await axios.get( `https://graph.facebook.com/${event.senderID}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data; 
-            fs.writeFileSync( __dirname + "/cache/avt.png", Buffer.from(Avatar, "utf-8") );
+  var tile = djtme[Math.floor(Math.random() * djtme.length)];
 
-        let gifLove = (await axios.get(gifCute[Math.floor(Math.random() * gifCute.length)], { responseType: "arraybuffer" } )).data; 
-            fs.writeFileSync( __dirname + "/cache/giflove.png", Buffer.from(gifLove, "utf-8") );
+  var background = [
+  "https://i.imgur.com/B9ma34v.jpeg",
+  "https://i.postimg.cc/qRpfNsvm/Picsart-23-06-10-08-51-59-268.png",
+  "https://i.postimg.cc/jSzXjY06/Picsart-23-06-10-08-25-38-156.jpg"
+  ];
+  var rd = background[Math.floor(Math.random() * background.length)];
 
-        let Avatar2 = (await axios.get( `https://graph.facebook.com/${id}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`, { responseType: "arraybuffer" } )).data;
-            fs.writeFileSync( __dirname + "/cache/avt2.png", Buffer.from(Avatar2, "utf-8") );
+  let getAvtmot = (
+    await axios.get(
+      `https://graph.facebook.com/${id1}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`,
+      { responseType: "arraybuffer" }
+    )
+  ).data;
+  fs.writeFileSync(pathAvt1, Buffer.from(getAvtmot, "utf-8"));
 
-        var imglove = [];
+  let getAvthai = (
+    await axios.get(
+      `https://graph.facebook.com/${id2}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`,
+      { responseType: "arraybuffer" }
+    )
+  ).data;
+  fs.writeFileSync(pathAvt2, Buffer.from(getAvthai, "utf-8"));
 
-              imglove.push(fs.createReadStream(__dirname + "/cache/avt.png"));
-              imglove.push(fs.createReadStream(__dirname + "/cache/giflove.png"));
-              imglove.push(fs.createReadStream(__dirname + "/cache/avt2.png"));
+  let getbackground = (
+    await axios.get(`${rd}`, {
+      responseType: "arraybuffer",
+    })
+  ).data;
+  fs.writeFileSync(pathImg, Buffer.from(getbackground, "utf-8"));
 
-        var msg = {body: `𝐎𝐰𝐧𝐞𝐫 ➻    𝐎𝐰𝐧𝐞𝐫 ➻    🌹 𝐀𝐚𝐝𝐢 𝐛𝐚𝐛𝐮 🌹\n\n[•||•●•||•┼┼──🌸,,💟..𝐀𝐧𝐤𝐡𝐨 𝐦𝐞 𝐛𝐚𝐬𝐚𝐥𝐮 𝐭𝐮𝐣𝐡𝐤𝐨. 💟 ...💗 𝐒𝐡𝐞𝐞𝐬𝐡𝐞 𝐦𝐞 𝐭𝐞𝐫𝐚𝐝𝐞𝐞𝐝𝐚𝐫 𝐡𝐨...💗 🥰•||•🐬•||•]]\n\n✦ ━━━━━━━ 💝 ━━━━━━━ ✦\n\n[•||•●•||•┼┼──🌸🌿 𝐀𝐤 𝐰𝐚𝐪𝐭 𝐞𝐬𝐚 𝐚𝐲𝐞 𝐣𝐢𝐧𝐝𝐠𝐢 𝐦𝐞 𝐤𝐢...💚 ,💜.. 𝐭𝐮𝐣𝐡𝐤𝐨 𝐯 𝐡𝐮𝐦𝐬𝐞 𝐩𝐲𝐚𝐫 𝐡𝐨 ..💜 ♥️✨  •||•🌸•||• ]]\n\n✦ ━━━━━━━ 💝 ━━━━━━━ ✦\n\n➻ 𝐍𝗔ɱɘ ✦  ${namee} \n\n➻ 𝐍𝗔ɱɘ ✦  ${name} \n\n✦ ━━━━━━━ 💝 ━━━━━━━ ✦\n\n🌸🍁The odds are: 〘${tle}〙`, mentions: arraytag, attachment: imglove}
-        return api.sendMessage(msg, event.threadID, event.messageID)
-                             }
+  let baseImage = await loadImage(pathImg);
+  let baseAvt1 = await loadImage(pathAvt1);
+  let baseAvt2 = await loadImage(pathAvt2);
+  let canvas = createCanvas(baseImage.width, baseImage.height);
+  let ctx = canvas.getContext("2d");
+  ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(baseAvt1, 100, 150, 300, 300);
+  ctx.drawImage(baseAvt2, 900, 150, 300, 300);
+  const imageBuffer = canvas.toBuffer();
+  fs.writeFileSync(pathImg, imageBuffer);
+  fs.removeSync(pathAvt1);
+  fs.removeSync(pathAvt2);
+  return api.sendMessage({ body: `Congratulations ${name1} successfully paired with ${name2}\nThe odds are ${tile}%`,
+            mentions: [{
+          tag: `${name2}`,
+          id: id2
+        }], attachment: fs.createReadStream(pathImg) },
+      event.threadID,
+      () => fs.unlinkSync(pathImg),
+      event.messageID);
+  }
