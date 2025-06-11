@@ -26,7 +26,7 @@ module.exports = {
             "https://i.imgur.com/VHUGlkZ.jpeg"
         ];
 
-        const message = "𝐎𝐰𝐧𝐞𝐫  ➻   𝐀𝐚𝐝𝐢 𝐛𝐚𝐛𝐮\n\n𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 𝐋𝐢𝐧𝐤  «»\n     https://www.instagram.com/aadi_singh__143\n\n𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐊 𝐢𝐝     «»\n    https://m.me/aadishrivtastav143\n\n🙂 💔";
+        const message = "𝐎𝐰𝐧𝐞𝐫  ➻   𝐀𝐚𝐝𝐢 𝐛𝐚𝐛𝐮\n\n𝐈𝐧𝐬𝐭𝐚𝐠𝐫𝐚𝐦 𝐋𝐢𝐧𝐤  «»\n     https://www.instagram.com/aadi_singh__143\n\n𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐊 𝐢𝐝     «»\nhttps://m.me/aadishrivtastav143\n\n🙂 💔";
         const { threadID, messageID } = event;
         const lowerCaseMessage = event.body.toLowerCase();
 
