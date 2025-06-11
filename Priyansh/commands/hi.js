@@ -2,8 +2,8 @@ module.exports.config = {
   name: "hi",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "𝐏𝐫𝐢𝐲𝐚𝐧𝐬𝐡 𝐑𝐚𝐣𝐩𝐮𝐭",
-  description: "hi sticker",
+  credits: "Sam but fixed by Arun(ind time)",
+  description: "hi gửi sticker",
   commandCategory: "QTV BOX",
   usages: "[text]",
   cooldowns: 5
@@ -13,17 +13,17 @@ module.exports.handleEvent = async ({ event, api, Users }) => {
   let KEY = [ 
     "hello",
     "hi",
-    "hai",
-    "chào",
+    "hy",
+    "hlo",
     "chao",
-    "hí",
+    "👋",
     "híí",
     "hì",
     "hìì",
     "lô",
     "hii",
     "helo",
-    "hê nhô"
+    "hiii"
   ];
   let thread = global.data.threadData.get(event.threadID) || {};
   if (typeof thread["hi"] == "undefined", thread["hi"] == false) return
@@ -46,16 +46,16 @@ module.exports.handleEvent = async ({ event, api, Users }) => {
     ];
     let sticker = data[Math.floor(Math.random() * data.length)];
     let moment = require("moment-timezone");
-    let hours = moment.tz('Asia/Manila').format('HHmm');
+    let hours = moment.tz('Asia/Kolkata').format('HHmm');
     let session = (
-    hours > 0001 && hours <= 400 ? "bright morning" : 
-    hours > 401 && hours <= 700 ? "morning" :
-    hours > 701 && hours <= 1000 ? "shining" :
-    hours > 1001 && hours <= 1200 ? "lunch" : 
-    hours > 1201 && hours <= 1700 ? "afternoon" : 
-    hours > 1701 && hours <= 1800 ? "gloaming" : 
-    hours > 1801 && hours <= 2100 ? "evening" : 
-    hours > 2101 && hours <= 2400 ? "late night" : 
+    hours > 0001 && hours <= 400 ? "So jao baby, Itni Raat Ko Hy hlo kAr Rahe ho🥲" : 
+    hours > 401 && hours <= 700 ? "Badi Jaldi Jaag Gye, 🙄" :
+    hours > 701 && hours <= 1000 ? "😘 Good morning baby😍😍 " :
+    hours > 1001 && hours <= 1200 ? " good morning, Nashta hua" : 
+    hours > 1201 && hours <= 1700 ? "Good Afternoon baby, Lunch Karlo😘" : 
+    hours > 1701 && hours <= 1800 ? "kese ho baby" : 
+    hours > 1801 && hours <= 2100 ? "Good evening 😘😘" : 
+    hours > 2101 && hours <= 2400 ? "how are you, dinner hua😘😘" : 
     "error");
     let name = await Users.getNameUser(event.senderID);
     let mentions = [];
@@ -63,7 +63,7 @@ module.exports.handleEvent = async ({ event, api, Users }) => {
       tag: name,
       id: event.senderID
     })
-    let msg = {body: `Hi ${name}, have a good ${session}`, mentions}
+    let msg = {body: `💝💝Hi ${name}, ❤️❤️ ${session}`, mentions}
     api.sendMessage(msg, event.threadID, (e, info) => {
       setTimeout(() => {
         api.sendMessage({sticker: sticker}, event.threadID);
@@ -77,23 +77,23 @@ module.exports.languages = {
   "vi": {
     "on": "Bật",
     "off": "Tắt",
-		"successText": `${this.config.name} thành công`,
-	},
-	"en": {
-		"on": "on",
-		"off": "off",
-		"successText": "success!",
-	}
+                "successText": `${this.config.name} thành công`,
+        },
+        "en": {
+                "on": "on",
+                "off": "off",
+                "successText": "success!",
+        }
 }
 
 module.exports.run = async ({ event, api, Threads, getText }) => {
   let { threadID, messageID } = event;
   let data = (await Threads.getData(threadID)).data;
-	if (typeof data["hi"] == "undefined" || data["hi"] == true) data["hi"] = false;
-	else data["hi"] = true;
-	await Threads.setData(threadID, {
-		data
-	});
-	global.data.threadData.set(threadID, data);
-	return api.sendMessage(`${(data["hi"] == false) ? getText("off") : getText("on")} ${getText("successText")}`, threadID, messageID);
+        if (typeof data["hi"] == "undefined" || data["hi"] == true) data["hi"] = false;
+        else data["hi"] = true;
+        await Threads.setData(threadID, {
+                data
+        });
+        global.data.threadData.set(threadID, data);
+        return api.sendMessage(`${(data["hi"] == false) ? getText("off") : getText("on")} ${getText("successText")}`, threadID, messageID);
 }
