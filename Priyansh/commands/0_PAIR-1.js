@@ -17,9 +17,9 @@ module.exports.run = async function ({ args, Users, Threads, api, event, Currenc
   const { loadImage, createCanvas } = require("canvas");
   const fs = global.nodemodule["fs-extra"];
   const axios = global.nodemodule["axios"];
-  let pathImg = __dirname + "/cache/background.png";
-  let pathAvt1 = __dirname + "/cache/Avtmot.png";
-  let pathAvt2 = __dirname + "/cache/Avthai.png";
+  let pathImg = __dirname + "/cache/background.jpeg";
+  let pathAvt1 = __dirname + "/cache/Avtmot.jpeg";
+  let pathAvt2 = __dirname + "/cache/Avthai.jpeg";
 
   var id1 = event.senderID;
   var name1 = await Users.getNameUser(id1);
