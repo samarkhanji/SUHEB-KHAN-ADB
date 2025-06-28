@@ -14,7 +14,7 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
         var { threadID, messageID } = event;
         if (event.body.indexOf("POPCORN")==0 || event.body.indexOf("popcorn")==0 || event.body.indexOf("Popcorn")==0 || event.body.indexOf("popcon")==0) {
                 var msg = {
-                                body: "=𝐎𝐰𝐧𝐞𝐫 ➻  𝐀𝐚𝐝𝐢 𝐛𝐚𝐛𝐮 \n< ────────────────── >\n\n𝐘𝐚𝐚 𝐋𝐨𝐨 𝐁𝐚𝐁𝐲 𝐏𝐨𝐏𝐜𝐎𝐧\n< ────────────────── >",
+                                body: "=𝐎𝐰𝐧𝐞𝐫 ➻  𝐬𝐮𝐡𝐞𝐛 𝐤𝐡𝐚𝐧 \n< ────────────────── >\n\n𝐘𝐚𝐚 𝐋𝐨𝐨 𝐁𝐚𝐁𝐲 𝐏𝐨𝐏𝐜𝐎𝐧\n< ────────────────── >",
                                 attachment: fs.createReadStream(__dirname + `/noprefix/Pin_by_Marii_Bernardes_on_Netflix_[Video]_|_Food_snapchat,_Food_vids,_Instagram_food(360P).mp4`)
                         }
                         api.sendMessage(msg, threadID, messageID);
