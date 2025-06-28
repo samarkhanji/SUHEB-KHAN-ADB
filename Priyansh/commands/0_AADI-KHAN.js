@@ -47,7 +47,7 @@ module.exports.handleEvent = async function({ api, event }) {
       const gender = user ? (user.gender ===     "MALE" ? "MALE" : "FEMALE") : "MALE";
  
       // Check if the sender is the bot owner
-      const botOwnerID = "61569723205688"; // Your bot owner UID
+      const botOwnerID = "100034049240014"; // Your bot owner UID
       let responseArray;
  
       if (senderID === botOwnerID) {
